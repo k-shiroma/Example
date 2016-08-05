@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>HTML5 TIPS</title>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script>
+    $(window).on('DOMContentLoaded', function(){
+
+      // File API利用可否チェック
+      if (!window.File) {
+        $("#msg").text("File APIが利用できません");
+      }
+
+      // ファイルが指定されたタイミングで、その情報を表示
+      $('#file').on('change', function(e) {
+        // 指定されたファイルを取得
+        var input = $("#file").prop("files")[0];
+        // 指定されたファイルの読み込み
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          $("#contents").empty();
+          $("#contents").text(e.target.result);
+        };
+        reader.readAsText(input);
+      });
+
+    });
+
+  </script>
+
+</head>
+<body>
+
+  ファイル：
+  <input id="file" name="file" type="file" />
+  <p id="msg" style="color: red;"></p>
+  <p>ファイル内容：</p>
+  <p id="contents"></p>
+
+</body>
+</html>
